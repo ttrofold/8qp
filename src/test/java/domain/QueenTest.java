@@ -21,14 +21,6 @@ public class QueenTest {
     };
     Queen mockQueen = context.mock(Queen.class);
 
-    private void expectSolveCallOnInit() {
-        context.checking(new Expectations() {
-            {
-                one(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
-            }
-        });
-    }
-
     @Test(expected=IllegalArgumentException.class)
     public void
     queenIsNotInitWithRowLessThan0() {
@@ -72,8 +64,6 @@ public class QueenTest {
     @Test
     public void
     queenIsInitWithNotNullNeighbour() {
-        expectSolveCallOnInit();
-
         assertNotNull(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen)
                 .getNeighbour());
     }
@@ -102,8 +92,6 @@ public class QueenTest {
     @Test
     public void
     canAttackIfNeighbourCanAttack() {
-        expectSolveCallOnInit();
-
         context.checking(new Expectations() {
             {
                 one(mockQueen).canAttack(AT_SOME_ROW - 1, AT_SOME_COLUMN + 3);
@@ -120,25 +108,6 @@ public class QueenTest {
     cannotAttackIfCannotAttackItselfAndHasNoNeighbour() {
         assertFalse(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR)
                 .canAttack(AT_SOME_ROW - 1, AT_SOME_COLUMN + 3));
-    }
-
-    @Test
-
-    public void
-    queenImmediatelyCalls_solve_OnInit() {
-        final boolean[] flag = new boolean[1];
-
-        flag[0] = false;
-
-        new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR) {
-            @Override
-            public boolean solve() {
-                flag[0] = true;
-                return true;
-            }
-        };
-
-        assertTrue(flag[0]);
     }
 
     @Test
@@ -176,7 +145,7 @@ public class QueenTest {
                 flag[0] = true;
                 return false;
             }
-        };
+        }.solve();
 
         assertTrue(flag[0]);
     }
@@ -202,15 +171,13 @@ public class QueenTest {
             @Override
             public boolean advance() {
                 flag[0]++;
-                return false;
+                return true;
             }
-        };
+        }.solve();
 
         assertEquals(2, flag[0]);
     }
 
-    // Here we needed to factor out a static method from a constructor,
-    // as Java constructors can't return a value
     @Test
     public void
     ifNeighbourCanAttackButCannotAdvanceThenCNoSolution() {
@@ -220,23 +187,21 @@ public class QueenTest {
                 will(onConsecutiveCalls(
                         returnValue(true),
                         returnValue(true),
-                        returnValue(false)));
+                        returnValue(true)));
             }
         });
 
-        final int[] flag = new int[1];
+        final int[] invocationCount = new int[1];
 
-        flag[0] = 0;
+        invocationCount[0] = 0;
 
-        new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen) {
+        assertFalse(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen) {
             @Override
             public boolean advance() {
-                flag[0]++;
-                return false;
+                invocationCount[0]++;
+                return invocationCount[0] < 3;
             }
-        };
-
-        assertEquals(2, flag[0]);
+        }.solve());
     }
 
 }

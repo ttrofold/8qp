@@ -11,8 +11,6 @@ public class Queen {
         checkIncomingProperty(column, "column");
         this.column = column;
         this.neighbour = neighbour;
-        solve();
-
     }
 
     private void checkIncomingProperty(int property, String name) {
@@ -39,7 +37,7 @@ public class Queen {
         } else if (row - this.row == column - this.column) {
             return true;
         }
-        return neighbour == null ? false : neighbour.canAttack(row, column);
+        return neighbour != null && neighbour.canAttack(row, column);
     }
 
     public boolean solve() {
@@ -47,7 +45,9 @@ public class Queen {
             return true;
         }
         while(neighbour.canAttack(row, column)) {
-            advance();
+            if(!advance()) {
+                return false;
+            }
         }
 
         return true;
