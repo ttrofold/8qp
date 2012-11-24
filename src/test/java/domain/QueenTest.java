@@ -210,8 +210,6 @@ public class QueenTest {
         assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
     }
 
-    // A 'BUT' test to the simplistic implementation for the previous test.
-    // Not a real test
     @Test
     public void
     cannotAdvanceFromTheLowestRowIfHasNoNeighbour() {
