@@ -1,9 +1,8 @@
-package domain;
+package domain.queen;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
@@ -11,15 +10,12 @@ import static junit.framework.Assert.*;
 public class QueenTest {
 
     private static final int AT_SOME_COLUMN = 3;
-    private Queen NULL_NEIGHBOUR = null;
+    private IQueen NULL_NEIGHBOUR = new PhantomQueen();
     private static final int AT_SOME_ROW = 4;
 
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    Queen mockQueen = context.mock(Queen.class);
+    Mockery context = new JUnit4Mockery();
+
+    IQueen mockQueen = context.mock(IQueen.class);
 
     @Test(expected=IllegalArgumentException.class)
     public void

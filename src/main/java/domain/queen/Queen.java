@@ -1,11 +1,11 @@
-package domain;
+package domain.queen;
 
-public class Queen {
+public class Queen implements IQueen {
     private int row;
     private int column;
-    private Queen neighbour;
+    private IQueen neighbour;
 
-    public Queen(int row, int column, Queen neighbour) {
+    public Queen(int row, int column, IQueen neighbour) {
         checkIncomingProperty(row, "row");
         this.row = row;
         checkIncomingProperty(column, "column");
@@ -27,23 +27,22 @@ public class Queen {
         return row;
     }
 
-    public Queen getNeighbour() {
+    public IQueen getNeighbour() {
         return neighbour;
     }
 
+    @Override
     public boolean canAttack(int row, int column) {
         if(row == this.row) {
             return true;
         } else if (row - this.row == column - this.column) {
             return true;
         }
-        return neighbour != null && neighbour.canAttack(row, column);
+        return neighbour.canAttack(row, column);
     }
 
+    @Override
     public boolean solve() {
-        if(neighbour == null) {
-            return true;
-        }
         while(neighbour.canAttack(row, column)) {
             if(!advance()) {
                 return false;
@@ -53,12 +52,13 @@ public class Queen {
         return true;
     }
 
+    @Override
     public boolean advance() {
         if(row < 7) {
             row++;
             return true;
         }
-        if(neighbour != null && neighbour.advance()) {
+        if(neighbour.advance()) {
             row = 0;
             return true;
         }
