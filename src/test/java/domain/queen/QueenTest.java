@@ -291,7 +291,7 @@ public class QueenTest extends AbstractQueenTest {
             }
         }.solution();
 
-        assertEquals(1, solution.getSolutionList().size());
-        assertEquals(Integer.valueOf(AT_SOME_ROW), solution.getSolutionList().get(0));
+        assertEquals(1, solution.getSize());
+        assertEquals(Integer.valueOf(AT_SOME_ROW), solution.get(0));
     }
 }

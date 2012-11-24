@@ -17,4 +17,12 @@ public class Solution {
     public void augment(int i) {
         solutionList.add(i);
     }
+
+    public int getSize() {
+        return getSolutionList().size();
+    }
+
+    public Integer get(int i) {
+        return getSolutionList().get(i);
+    }
 }
