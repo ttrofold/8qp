@@ -20,6 +20,6 @@ public class PhantomQueen implements IQueen {
 
     @Override
     public Solution solution() {
-        return null;
+        return new Solution();
     }
 }

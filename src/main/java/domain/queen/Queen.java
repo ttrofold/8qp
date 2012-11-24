@@ -76,10 +76,12 @@ public class Queen implements IQueen {
     }
 
     public Solution solution() {
-        neighbour.solution();
         if(!solve()) {
             throw new SolutionException();
         }
-        return new Solution();
+
+        Solution solution = neighbour.solution();
+        solution.augment(row);
+        return solution;
     }
 }

@@ -259,6 +259,9 @@ public class QueenTest extends AbstractQueenTest {
         context.checking(new Expectations() {
             {
                one(mockQueen).solution();
+
+                // Added to fix the test after having added the implementation for the following test
+                will(returnValue(new Solution()));
             }
         });
 
@@ -273,15 +276,22 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     shouldAugmentNeighboursSolutionWithItsRow() {
-         final Solution solution = new Solution();
 
         checking(new Expectations() {
             {
-                /*one(mockQueen).solution();
-                will(returnValue(solution));*/
+                one(mockQueen).solution();
+                will(returnValue(new Solution()));
             }
         });
 
-        // Postponed until the moment Solution is implemented
+        Solution solution = new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen){
+            @Override
+            public boolean solve() {
+                return true;
+            }
+        }.solution();
+
+        assertEquals(1, solution.getSolutionList().size());
+        assertEquals(Integer.valueOf(AT_SOME_ROW), solution.getSolutionList().get(0));
     }
 }
