@@ -1,4 +1,4 @@
-package domain;
+package domain.exceptions;
 
 public class SolutionException extends RuntimeException {
 }

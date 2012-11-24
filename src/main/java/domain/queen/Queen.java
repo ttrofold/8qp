@@ -1,7 +1,7 @@
 package domain.queen;
 
 import domain.Solution;
-import domain.SolutionException;
+import domain.exceptions.NoSolutionException;
 
 public class Queen implements IQueen {
     private int row;
@@ -77,7 +77,7 @@ public class Queen implements IQueen {
 
     public Solution solution() {
         if(!solve()) {
-            throw new SolutionException();
+            throw new NoSolutionException();
         }
 
         Solution solution = neighbour.solution();

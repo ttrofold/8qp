@@ -1,7 +1,7 @@
 package domain.queen;
 
 import domain.Solution;
-import domain.SolutionException;
+import domain.exceptions.NoSolutionException;
 import org.jmock.Expectations;
 import org.junit.Test;
 
@@ -231,7 +231,7 @@ public class QueenTest extends AbstractQueenTest {
         assertEquals(0, queen.getRow());
     }
 
-    @Test(expected = SolutionException.class)
+    @Test(expected = NoSolutionException.class)
     public void
     shouldThrowExceptionIfAskedForSolutionWhenThereIsNoSolution() {
         new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR) {
