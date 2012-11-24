@@ -1,5 +1,7 @@
 package domain.queen;
 
+import domain.Solution;
+import domain.SolutionException;
 import org.jmock.Expectations;
 import org.junit.Test;
 
@@ -78,7 +80,7 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     canAttackIfNeighbourCanAttack() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
                 one(mockQueen).canAttack(AT_SOME_ROW - 1, AT_SOME_COLUMN + 3);
                 will(returnValue(true));
@@ -99,9 +101,9 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNoNeighborCanAttackThenSolutionIsFound() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
-                exactly(2).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
+                one(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
                 will(returnValue(false));
             }
         });
@@ -112,12 +114,11 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNeighbourCanAttackShouldAdvance() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
-                exactly(2).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
+                exactly(1).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
                 will(onConsecutiveCalls(
-                        returnValue(true),
-                        returnValue(false)));
+                        returnValue(true)));
 
                 // In this test, we are not interested on consecutive calls
             }
@@ -139,7 +140,7 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     whileNeighbourCanAttackShouldAdvance() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
                 exactly(3).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
                 will(onConsecutiveCalls(
@@ -167,7 +168,7 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNeighbourCanAttackButCannotAdvanceThenCNoSolution() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
                 exactly(3).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
                 will(onConsecutiveCalls(
@@ -205,7 +206,7 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifCannotAdvanceSelfButNeighbourCanAdvanceThenCanAdvance() {
-        context.checking(new Expectations() {
+        checking(new Expectations() {
             {
                 one(mockQueen).advance();
                 will(returnValue(true));
@@ -228,5 +229,59 @@ public class QueenTest extends AbstractQueenTest {
         queen.advance();
 
         assertEquals(0, queen.getRow());
+    }
+
+    @Test(expected = SolutionException.class)
+    public void
+    shouldThrowExceptionIfAskedForSolutionWhenThereIsNoSolution() {
+        new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR) {
+            @Override
+            public boolean solve() {
+                return false;
+            }
+        }.solution();
+    }
+
+    @Test
+    public void
+    shouldProvideSolutionWhenThereIsOne() {
+        assertTrue(new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR) {
+            @Override
+            public boolean solve() {
+                return true;
+            }
+        }.solution() != null);
+    }
+
+    @Test
+    public void
+    shouldAskForNeighboursSolutionBeforeReturningOfItself() {
+        context.checking(new Expectations() {
+            {
+               one(mockQueen).solution();
+            }
+        });
+
+        new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen) {
+            @Override
+            public boolean solve() {
+                return true;
+            }
+        }.solution();
+    }
+
+    @Test
+    public void
+    shouldAugmentNeighboursSolutionWithItsRow() {
+         final Solution solution = new Solution();
+
+        checking(new Expectations() {
+            {
+                /*one(mockQueen).solution();
+                will(returnValue(solution));*/
+            }
+        });
+
+        // Postponed until the moment Solution is implemented
     }
 }

@@ -1,5 +1,8 @@
 package domain.queen;
 
+import domain.Solution;
+import domain.SolutionException;
+
 public class Queen implements IQueen {
     private int row;
     private int column;
@@ -70,5 +73,13 @@ public class Queen implements IQueen {
         }
 
         return false;
+    }
+
+    public Solution solution() {
+        neighbour.solution();
+        if(!solve()) {
+            throw new SolutionException();
+        }
+        return new Solution();
     }
 }

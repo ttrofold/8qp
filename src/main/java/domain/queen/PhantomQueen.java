@@ -1,5 +1,7 @@
 package domain.queen;
 
+import domain.Solution;
+
 public class PhantomQueen implements IQueen {
     @Override
     public boolean canAttack(int row, int column) {
@@ -14,5 +16,10 @@ public class PhantomQueen implements IQueen {
     @Override
     public boolean advance() {
         return false;
+    }
+
+    @Override
+    public Solution solution() {
+        return null;
     }
 }
