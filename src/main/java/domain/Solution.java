@@ -34,4 +34,47 @@ public class Solution {
     public Integer get(int i) {
         return solutionList.get(i);
     }
+
+    public Solution rotateBy90() {
+        List<Integer> result = new LinkedList<Integer>();
+        for(int i = 0; i <  getSolutionList().size(); i ++) {
+             result.add(7 - getSolutionList().lastIndexOf(i));
+        }
+        return new Solution(result);
+    }
+
+    public Solution rotateBy180() {
+        List<Integer> result = new LinkedList<Integer>();
+        for(int i = 0; i <  getSolutionList().size(); i ++) {
+            result.add(7 - getSolutionList().get(7 - i));
+        }
+        return new Solution(result);
+    }
+
+    public Solution rotateBy270() {
+        List<Integer> result = new LinkedList<Integer>();
+        for(int i = 0; i <  getSolutionList().size(); i ++) {
+            result.add(getSolutionList().lastIndexOf(7 - i));
+        }
+        return new Solution(result);
+    }
+
+    public Solution reflect() {
+        List<Integer> result = new LinkedList<Integer>();
+        for(int i = 0; i <  getSolutionList().size(); i ++) {
+            result.add(getSolutionList().get(7 - i));
+        }
+        return new Solution(result);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Solution solution = (Solution) o;
+
+        return !(solutionList != null ? !solutionList.equals(solution.solutionList) : solution.solutionList != null);
+
+    }
 }
