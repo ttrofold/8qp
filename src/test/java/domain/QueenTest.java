@@ -215,4 +215,16 @@ public class QueenTest {
     cannotAdvanceFromTheLowestRowIfHasNoNeighbour() {
         assertFalse(new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
     }
+
+    @Test
+    public void
+    ifCannotAdvanceSelfButNeighbourCanAdvanceThenCanAdvance() {
+        context.checking(new Expectations() {
+            {
+                one(mockQueen).advance();
+                will(returnValue(true));
+            }
+        });
+        assertTrue(new Queen(7, AT_SOME_COLUMN, mockQueen).advance());
+    }
 }
