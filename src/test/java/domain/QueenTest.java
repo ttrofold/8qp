@@ -214,7 +214,7 @@ public class QueenTest {
     // Not a real test
     @Test
     public void
-    basicallyCannotAdvanceFromTheLowestRow/*If has no neighbour*/() {
+    cannotAdvanceFromTheLowestRowIfHasNoNeighbour() {
         assertFalse(new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
     }
 }
