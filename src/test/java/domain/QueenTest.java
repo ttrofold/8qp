@@ -209,4 +209,12 @@ public class QueenTest {
     canAdvanceIfStillNotInTheLowestRow() {
         assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
     }
+
+    // A 'BUT' test to the simplistic implementation for the previous test.
+    // Not a real test
+    @Test
+    public void
+    basicallyCannotAdvanceFromTheLowestRow/*If has no neighbour*/() {
+        assertFalse(new Queen(7, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
+    }
 }

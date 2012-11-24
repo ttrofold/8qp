@@ -54,6 +54,10 @@ public class Queen {
     }
 
     public boolean advance() {
-        return true;
+        if(row < 7) {
+            row++;
+            return true;
+        }
+        return false;
     }
 }
