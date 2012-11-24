@@ -3,7 +3,6 @@ package domain;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.action.VoidAction;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
@@ -212,7 +211,6 @@ public class QueenTest {
 
     // Here we needed to factor out a static method from a constructor,
     // as Java constructors can't return a value
-    // This decision also influenced
     @Test
     public void
     ifNeighbourCanAttackButCannotAdvanceThenCNoSolution() {
