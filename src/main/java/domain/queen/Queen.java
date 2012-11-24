@@ -56,7 +56,13 @@ public class Queen implements IQueen {
     public boolean advance() {
         if(row < 7) {
             row++;
-            return true;
+
+            // This moment is crucial, while it seems to be logical to return plain boolean,
+            // instead of returning the result of invocation to solve(), which may seem redundant,
+            // doing so will break queen collaboration to obtain a solution, as the the neighbour
+            // queen doesn't initiate the search for a new solution - advancing a neighbour may put
+            // it under the threat of attack.
+            return solve();
         }
         if(neighbour.advance()) {
             row = 0;
