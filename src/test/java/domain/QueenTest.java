@@ -204,4 +204,9 @@ public class QueenTest {
         }.solve());
     }
 
+    @Test
+    public void
+    canAdvanceIfStillNotInTheLowestRow() {
+        assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR).advance());
+    }
 }

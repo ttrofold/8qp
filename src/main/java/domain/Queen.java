@@ -54,6 +54,6 @@ public class Queen {
     }
 
     public boolean advance() {
-        return false;
+        return true;
     }
 }
