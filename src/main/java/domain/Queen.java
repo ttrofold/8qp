@@ -58,6 +58,11 @@ public class Queen {
             row++;
             return true;
         }
-        return neighbour != null && neighbour.advance();
+        if(neighbour != null && neighbour.advance()) {
+            row = 0;
+            return true;
+        }
+
+        return false;
     }
 }

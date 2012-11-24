@@ -227,4 +227,20 @@ public class QueenTest {
         });
         assertTrue(new Queen(7, AT_SOME_COLUMN, mockQueen).advance());
     }
+
+    @Test
+    public void
+    ifCannotAdvanceSelfButNeighbourCanAdvanceThenCanAdvanceToThe0thRow() {
+        context.checking(new Expectations() {
+            {
+                one(mockQueen).advance();
+                will(returnValue(true));
+            }
+        });
+
+        Queen queen = new Queen(7, AT_SOME_COLUMN, mockQueen);
+        queen.advance();
+
+        assertEquals(0, queen.getRow());
+    }
 }
