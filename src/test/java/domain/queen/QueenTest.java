@@ -3,6 +3,8 @@ package domain.queen;
 import domain.Solution;
 import domain.exceptions.NoSolutionException;
 import org.jmock.Expectations;
+import org.jmock.api.Invocation;
+import org.jmock.lib.action.CustomAction;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
@@ -65,16 +67,30 @@ public class QueenTest extends AbstractQueenTest {
 
     @Test
     public void
-    canAttackOnTheSameDiagonalABitLower() {
+    canAttackOnTheSameDiagonalABitLowerToTheRight() {
         assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR)
                 .canAttack(AT_SOME_ROW + 2, AT_SOME_COLUMN + 2));
     }
 
     @Test
     public void
-    canAttackOnTheSameDiagonalABitHigher() {
+    canAttackOnTheSameDiagonalABitHigherToTheRight() {
+        assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR)
+            .canAttack(AT_SOME_ROW  - 2, AT_SOME_COLUMN + 2));
+    }
+
+    @Test
+    public void
+    canAttackOnTheSameDiagonalABitHigherToTheLeft() {
         assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR)
                 .canAttack(AT_SOME_ROW - 2, AT_SOME_COLUMN - 2));
+    }
+
+    @Test
+    public void
+    canAttackOnTheSameDiagonalABitLowerToTheLeft() {
+        assertTrue(new Queen(AT_SOME_ROW, AT_SOME_COLUMN, NULL_NEIGHBOUR)
+                .canAttack(AT_SOME_ROW + 2, AT_SOME_COLUMN - 2));
     }
 
     @Test
@@ -101,6 +117,8 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNoNeighborCanAttackThenSolutionIsFound() {
+        expectNeighbourSolvedItsProblem();
+
         checking(new Expectations() {
             {
                 one(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
@@ -114,6 +132,8 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNeighbourCanAttackShouldAdvance() {
+        expectNeighbourSolvedItsProblem();
+
         checking(new Expectations() {
             {
                 exactly(1).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
@@ -140,6 +160,8 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     whileNeighbourCanAttackShouldAdvance() {
+        expectNeighbourSolvedItsProblem();
+
         checking(new Expectations() {
             {
                 exactly(3).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
@@ -168,6 +190,8 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifNeighbourCanAttackButCannotAdvanceThenCNoSolution() {
+        expectNeighbourSolvedItsProblem();
+
         checking(new Expectations() {
             {
                 exactly(3).of(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
@@ -206,10 +230,16 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifCannotAdvanceSelfButNeighbourCanAdvanceThenCanAdvance() {
+        expectNeighbourSolvedItsProblem();
+
         checking(new Expectations() {
             {
                 one(mockQueen).advance();
                 will(returnValue(true));
+
+                // Fix for the broken test in response to neighbourAlso... in QueenIntegrationTest
+                // In this test, we are not interested in subsequent interaction and thus allowing
+                allowing(mockQueen).canAttack(0, AT_SOME_COLUMN);
             }
         });
         assertTrue(new Queen(7, AT_SOME_COLUMN, mockQueen).advance());
@@ -218,10 +248,16 @@ public class QueenTest extends AbstractQueenTest {
     @Test
     public void
     ifCannotAdvanceSelfButNeighbourCanAdvanceThenCanAdvanceToThe0thRow() {
+        expectNeighbourSolvedItsProblem();
+
         context.checking(new Expectations() {
             {
                 one(mockQueen).advance();
                 will(returnValue(true));
+
+                // Fix for the broken test in response to neighbourAlso... in QueenIntegrationTest
+                // In this test, we are not interested in subsequent interaction and thus allowing
+                allowing(mockQueen).canAttack(0, AT_SOME_COLUMN);
             }
         });
 
@@ -293,5 +329,59 @@ public class QueenTest extends AbstractQueenTest {
 
         assertEquals(1, solution.getSize());
         assertEquals(Integer.valueOf(AT_SOME_ROW), solution.get(0));
+    }
+
+    @Test
+    public void
+    shouldFirstCheckItsNeighbourSolvedHerProblem() {
+        checking(new Expectations() {
+            {
+                one(mockQueen).solve();
+
+                // This test is not interested in canAttack invocations, thus allowing
+                allowing(mockQueen).canAttack(AT_SOME_ROW, AT_SOME_COLUMN);
+            }
+        });
+
+        new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen).solve();
+    }
+
+    @Test
+    public void
+    shouldCheckIfHasSolutionBeforeProceedingWithSolution() {
+        final boolean[] flag = new boolean[1];
+
+        checking(new Expectations() {
+            {
+                one(mockQueen).solution();
+                will(new CustomAction("") {
+                    @Override
+                    public Object invoke(Invocation invocation) throws Throwable {
+                        // Here we set the flag to true, to assert the order of invocation
+                        flag[0] = true;
+                        return new Solution();
+                    }
+                });
+            }
+        });
+        new Queen(AT_SOME_ROW, AT_SOME_COLUMN, mockQueen) {
+            @Override
+            public boolean solve() {
+                assertFalse(flag[0]);
+                return true;
+            }
+        }.solution();
+
+        assertTrue(flag[0]);
+    }
+
+    private void expectNeighbourSolvedItsProblem() {
+        checking(new Expectations() {
+            {
+                // Fix
+                one(mockQueen).solve();
+                will(returnValue(true));
+            }
+        });
     }
 }

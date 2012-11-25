@@ -24,7 +24,7 @@ public class PhantomQueen implements IQueen {
 
     @Override
     public boolean solve() {
-        return false;
+        return true;
     }
 
     @Override

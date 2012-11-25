@@ -38,7 +38,7 @@ public class Queen implements IQueen {
     public boolean canAttack(int row, int column) {
         if(row == this.row) {
             return true;
-        } else if (row - this.row == column - this.column) {
+        } else if (row - this.row == column - this.column || row - this.row == this.column - column) {
             return true;
         }
         return neighbour.canAttack(row, column);
@@ -46,6 +46,10 @@ public class Queen implements IQueen {
 
     @Override
     public boolean solve() {
+        if(!neighbour.solve()) {
+            return false;
+        }
+
         while(neighbour.canAttack(row, column)) {
             if(!advance()) {
                 return false;
@@ -65,11 +69,17 @@ public class Queen implements IQueen {
             // doing so will break queen collaboration to obtain a solution, as the the neighbour
             // queen doesn't initiate the search for a new solution - advancing a neighbour may put
             // it under the threat of attack.
+
+            // For test specification, see test whenNeighbourAdvances in QueenIntegrationTest
             return solve();
         }
         if(neighbour.advance()) {
             row = 0;
-            return true;
+
+            // Same reasoning as above
+
+            // For test specification, see test neighbourAlsoRecomputesSolution in QueenIntegrationTest
+            return solve();
         }
 
         return false;

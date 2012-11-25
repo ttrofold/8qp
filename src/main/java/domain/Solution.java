@@ -75,6 +75,10 @@ public class Solution {
         Solution solution = (Solution) o;
 
         return !(solutionList != null ? !solutionList.equals(solution.solutionList) : solution.solutionList != null);
+    }
 
+    @Override
+    public int hashCode() {
+        return solutionList != null ? solutionList.hashCode() : 0;
     }
 }
