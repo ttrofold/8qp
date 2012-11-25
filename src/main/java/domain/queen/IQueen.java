@@ -2,7 +2,7 @@ package domain.queen;
 
 import domain.Solution;
 
-public interface IQueen {
+public interface IQueen extends Cloneable {
     boolean canAttack(int row, int column);
 
     boolean solve();
@@ -10,4 +10,6 @@ public interface IQueen {
     boolean advance();
 
     Solution solution();
+
+    IQueen clone();
 }

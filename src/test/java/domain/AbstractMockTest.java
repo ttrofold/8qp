@@ -6,7 +6,7 @@ import org.jmock.internal.ExpectationBuilder;
 import org.junit.runner.RunWith;
 
 @RunWith(JMock.class)
-public class AbstractMockTest {
+public abstract class AbstractMockTest {
 
     public JUnit4Mockery context = new JUnit4Mockery();
 

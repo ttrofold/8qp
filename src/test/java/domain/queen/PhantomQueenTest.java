@@ -10,6 +10,6 @@ public class PhantomQueenTest extends AbstractMockTest {
     @Test
     public void
     shouldProvideNotNullSolution() {
-        assertNotNull(new PhantomQueen().solution());
+        assertNotNull(PhantomQueen.INSTANCE.solution());
     }
 }

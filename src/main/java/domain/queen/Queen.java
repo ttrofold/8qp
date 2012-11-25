@@ -84,4 +84,24 @@ public class Queen implements IQueen {
         solution.augment(row);
         return solution;
     }
+
+    @Override
+    public IQueen clone() {
+        try {
+            return (IQueen) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Queen queen = (Queen) o;
+
+        return column == queen.column && row == queen.row && neighbour.equals(queen.neighbour);
+    }
 }
