@@ -401,4 +401,10 @@ public class SolutionTest extends AbstractMockTest {
         assertEquals(Integer.valueOf(1), t90Metadata.get(0));
     }
 
+    @Test
+    public void
+    knowsItsFENRepresentation() {
+        assertEquals("6Q1/Q7/3Q4/2Q5/4Q3/1Q6/7Q/5Q2", new Solution(new LinkedList<Integer>() {{
+            add(1); add(5); add(3); add(2); add(4); add(7); add(0); add(6);}}).fen());
+    }
 }
