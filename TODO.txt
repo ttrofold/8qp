@@ -1,3 +1,5 @@
 1. To handle CloneNotSupportedException.
 
 NULL -> SolManager distinct not ret null -> ... draft -> SolutionTest...
+
+2. To handle case reflection and rotation are applied to incomplete solutions.

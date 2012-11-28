@@ -248,4 +248,108 @@ public class SolutionManagerTest extends AbstractMockTest {
         assertTrue(firstR270.get(0).equals(1));
         assertTrue(secondR270.get(0).equals(0));
     }
+
+    @Test
+    public void
+    uniqueShouldFilterOutT90() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(3, 7,
+                    new Queen(0, 6, new Queen(4, 5, new Queen(2, 4, new Queen(0, 3, new Queen(5, 2, new Queen(7, 1,
+                            new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutT180() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(6, 7,
+                    new Queen(1, 6, new Queen(5, 5, new Queen(2, 4, new Queen(0, 3, new Queen(3, 2, new Queen(7, 1,
+                            new Queen(4, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutT270() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(6, 7,
+                    new Queen(0, 6, new Queen(2, 5, new Queen(7, 4, new Queen(5, 3, new Queen(3, 2, new Queen(1, 1,
+                            new Queen(4, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutReflect0() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(1, 7,
+                    new Queen(6, 6, new Queen(2, 5, new Queen(5, 4, new Queen(7, 3, new Queen(4, 2, new Queen(0, 1,
+                            new Queen(3, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutReflect90() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(4, 7,
+                    new Queen(1, 6, new Queen(3, 5, new Queen(5, 4, new Queen(7, 3, new Queen(2, 2, new Queen(0, 1,
+                            new Queen(6, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutReflect180() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(4, 7,
+                    new Queen(7, 6, new Queen(3, 5, new Queen(0, 4, new Queen(2, 3, new Queen(5, 2, new Queen(1, 1,
+                            new Queen(6, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldFilterOutReflect270() {
+        List<Solution> solutions = SolutionManager.unique(new LinkedList<Queen>(){{add(new Queen(3, 7,
+                new Queen(0, 6, new Queen(4, 5, new Queen(7, 4, new Queen(5, 3, new Queen(2, 2, new Queen(6, 1,
+                        new Queen(1, 0, PhantomQueen.INSTANCE)))))))));
+            add(new Queen(1, 7,
+                    new Queen(7, 6, new Queen(5, 5, new Queen(0, 4, new Queen(2, 3, new Queen(4, 2, new Queen(6, 1,
+                            new Queen(3, 0, PhantomQueen.INSTANCE)))))))));
+        }});
+
+        assertEquals(1, solutions.size());
+    }
+
+    @Test
+    public void
+    uniqueShouldReturn12Solutions() {
+        assertEquals(12, SolutionManager.unique(QueenManager.generateAllPlacements()).size());
+    }
 }

@@ -55,4 +55,20 @@ public class SolutionManager {
         }
         return all;
     }
+
+    public static List<Solution> unique(List<Queen> queens) {
+        LinkedList<Solution> all = new LinkedList<Solution>(SolutionManager.all(queens));
+        List<Solution> f = new LinkedList<Solution>();
+        for(Solution s : all) {
+            if(!f.contains(s.rotateBy90())
+                    && !f.contains(s.rotateBy180())
+                    && !f.contains(s.rotateBy270())
+                    && !f.contains(s.reflect())
+                    && !f.contains(s.rotateBy90().reflect())
+                    && !f.contains(s.rotateBy180().reflect())
+                    && !f.contains(s.rotateBy270().reflect()))
+                f.add(s);
+        }
+        return f;
+    }
 }
