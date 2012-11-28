@@ -7,6 +7,15 @@ import java.util.List;
 
 public class Solution {
     private List<Integer> solutionList;
+    private List<List<Integer>> metadata;
+
+    {
+        metadata = new LinkedList<List<Integer>>();
+
+        for(int i = 0; i < 7; i++) {
+            metadata.add(new LinkedList<Integer>());
+        }
+    }
 
     public Solution() {
         solutionList = new LinkedList<Integer>();
@@ -80,5 +89,57 @@ public class Solution {
     @Override
     public int hashCode() {
         return solutionList != null ? solutionList.hashCode() : 0;
+    }
+
+    public List<Integer> getMetadata(MetaKey key) {
+        return metadata.get(key.getMetaIndex());
+    }
+
+    public List<List<Integer>> getMetadata() {
+        return metadata;
+    }
+
+    public void addMetadata(MetaKey key, int i) {
+        metadata.get(key.getMetaIndex()).add(i);
+    }
+
+    public enum MetaKey {
+        T90 {
+            @Override
+            public int getMetaIndex() {
+                return 0;
+            }
+        }, T180 {
+            @Override
+            public int getMetaIndex() {
+                return 1;
+            }
+        }, T270 {
+            @Override
+            public int getMetaIndex() {
+                return 2;
+            }
+        }, R0 {
+            @Override
+            public int getMetaIndex() {
+                return 3;
+            }
+        }, R90 {
+            @Override
+            public int getMetaIndex() {
+                return 4;
+            }
+        }, R180 {
+            @Override
+            public int getMetaIndex() {
+                return 5;
+            }
+        }, R270 {
+            @Override
+            public int getMetaIndex() {
+                return 6;
+            }
+        };
+        public abstract int getMetaIndex();
     }
 }

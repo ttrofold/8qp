@@ -125,4 +125,280 @@ public class SolutionTest extends AbstractMockTest {
                             add(6); add(0); add(7); add(4); add(2); add(3); add(5); add(1);}}),
                 new Solution(list).reflect());
     }
+
+    @Test
+    public void
+    metadataContains7Stores() {
+        List<List<Integer>> metadata = new Solution().getMetadata();
+        assertEquals(7, metadata.size());
+    }
+
+    @Test
+    public void
+    shouldAddToMetaT90Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T90, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+
+        assertEquals(1, t90Metadata.size());
+        assertEquals(Integer.valueOf(1), t90Metadata.get(0));
+    }
+
+
+    @Test
+    public void
+    shouldAddToMetaT180Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T180, 1);
+
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+
+        assertEquals(1, t180Metadata.size());
+        assertEquals(Integer.valueOf(1), t180Metadata.get(0));
+    }
+
+
+    @Test
+    public void
+    shouldAddToMetaT270Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T270, 1);
+
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+
+        assertEquals(1, t270Metadata.size());
+        assertEquals(Integer.valueOf(1), t270Metadata.get(0));
+    }
+
+    @Test
+    public void
+    shouldAddToMetaR0Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R0, 1);
+
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+
+        assertEquals(1, r0Metadata.size());
+        assertEquals(Integer.valueOf(1), r0Metadata.get(0));
+    }
+
+    @Test
+    public void
+    shouldAddToMetaR90Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R90, 1);
+
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+
+        assertEquals(1, r90Metadata.size());
+        assertEquals(Integer.valueOf(1), r90Metadata.get(0));
+    }
+
+    @Test
+    public void
+    shouldAddToMetaR180Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R180, 1);
+
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+
+        assertEquals(1, r180Metadata.size());
+        assertEquals(Integer.valueOf(1), r180Metadata.get(0));
+    }
+
+    @Test
+    public void
+    shouldAddToMetaR270Key() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R270, 1);
+
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(1, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), r270Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToR270ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R270, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(1, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), r270Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToR180ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R180, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(1, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), r180Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToR90ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R90, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(1, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), r90Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToR0ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.R0, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(1, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), r0Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToT270ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T270, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(1, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), t270Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToT180ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T180, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(0, t90Metadata.size());
+        assertEquals(1, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), t180Metadata.get(0));
+    }
+
+    @Test
+    public void
+    addingToT90ShouldNotAddToOtherKeys() {
+        Solution solution = new Solution();
+
+        solution.addMetadata(Solution.MetaKey.T90, 1);
+
+        List<Integer> t90Metadata = solution.getMetadata(Solution.MetaKey.T90);
+        List<Integer> t180Metadata = solution.getMetadata(Solution.MetaKey.T180);
+        List<Integer> t270Metadata = solution.getMetadata(Solution.MetaKey.T270);
+        List<Integer> r0Metadata = solution.getMetadata(Solution.MetaKey.R0);
+        List<Integer> r90Metadata = solution.getMetadata(Solution.MetaKey.R90);
+        List<Integer> r180Metadata = solution.getMetadata(Solution.MetaKey.R180);
+        List<Integer> r270Metadata = solution.getMetadata(Solution.MetaKey.R270);
+
+        assertEquals(1, t90Metadata.size());
+        assertEquals(0, t180Metadata.size());
+        assertEquals(0, t270Metadata.size());
+        assertEquals(0, r0Metadata.size());
+        assertEquals(0, r90Metadata.size());
+        assertEquals(0, r180Metadata.size());
+        assertEquals(0, r270Metadata.size());
+        assertEquals(Integer.valueOf(1), t90Metadata.get(0));
+    }
+
 }
