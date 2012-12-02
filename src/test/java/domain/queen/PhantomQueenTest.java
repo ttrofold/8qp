@@ -1,6 +1,6 @@
 package domain.queen;
 
-import domain.AbstractMockTest;
+import general.AbstractMockTest;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;

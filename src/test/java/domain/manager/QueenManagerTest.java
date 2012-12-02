@@ -1,7 +1,8 @@
-package domain;
+package domain.manager;
 
 import domain.queen.PhantomQueen;
 import domain.queen.Queen;
+import general.AbstractMockTest;
 import org.junit.Test;
 
 import java.util.LinkedList;

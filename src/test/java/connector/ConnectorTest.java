@@ -1,11 +1,18 @@
 package connector;
 
+import org.junit.Before;
 import org.junit.Test;
 import tabula.board.LayeredBoard;
 
 import static org.junit.Assert.assertTrue;
 
 public class ConnectorTest {
+
+    @Before
+    public void
+    setConnectMethod() {
+        Connector.setConnectMethod(new ConnectMethod());
+    }
 
     @Test
     public void

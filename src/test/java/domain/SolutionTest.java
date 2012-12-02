@@ -1,6 +1,7 @@
 package domain;
 
 import domain.exceptions.SolutionException;
+import general.AbstractMockTest;
 import org.jmock.Expectations;
 import org.junit.Test;
 
@@ -399,5 +400,13 @@ public class SolutionTest extends AbstractMockTest {
         assertEquals(0, r180Metadata.size());
         assertEquals(0, r270Metadata.size());
         assertEquals(Integer.valueOf(1), t90Metadata.get(0));
+    }
+
+    @Test
+    public void
+    requesMetadataFromEmptyStore() {
+        Solution solution = new Solution();
+        List<Integer> metadata = solution.getMetadata(Solution.MetaKey.R0);
+        assertEquals(0, metadata.size());
     }
 }

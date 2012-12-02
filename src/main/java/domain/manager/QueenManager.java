@@ -1,4 +1,4 @@
-package domain;
+package domain.manager;
 
 import domain.queen.IQueen;
 import domain.queen.PhantomQueen;

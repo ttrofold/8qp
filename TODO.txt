@@ -4,3 +4,5 @@ NULL -> SolManager distinct not ret null -> ... draft -> SolutionTest...
 
 2. To handle case reflection and rotation are applied to incomplete solutions.
 3. To handle prev. on fen().
+
+instead of UI testing, was: -> mock static method -> testing of interactions (Connector, Runner, MainSpike)

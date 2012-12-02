@@ -1,1 +1,4 @@
-This file was created by IntelliJ IDEA 11.1.4 for binding GitHub repository
+A naive OO solution to the 8qp, created in IDEA, and uploaded to GitHub with the help of IDEA.
+
+All classes are TDDd for as far as I could, with an exception of Main, which is completely spiked,
+and Runner, which is half-spiked.

@@ -1,7 +1,9 @@
-package domain;
+package domain.manager;
 
+import domain.Solution;
 import domain.queen.PhantomQueen;
 import domain.queen.Queen;
+import general.AbstractMockTest;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -15,9 +17,11 @@ public class SolutionManagerTest extends AbstractMockTest {
     @Test
     public void
     shouldTransformPlacementsToSolutions() {
-        List<Solution> solutions = SolutionManager.transformPlacementToSolution(new LinkedList<Queen>(){{add(new Queen(3, 7,
-                new Queen(1, 6, new Queen(7, 5, new Queen(5, 4, new Queen(0, 3, new Queen(2, 2, new Queen(4, 1,
-                        new Queen(6, 0, PhantomQueen.INSTANCE)))))))));}});
+        List<Solution> solutions = SolutionManager.transformPlacementToSolution(new LinkedList<Queen>() {{
+            add(new Queen(3, 7,
+                    new Queen(1, 6, new Queen(7, 5, new Queen(5, 4, new Queen(0, 3, new Queen(2, 2, new Queen(4, 1,
+                            new Queen(6, 0, PhantomQueen.INSTANCE)))))))));
+        }});
 
         assertEquals(new LinkedList<Solution>() {{add(new Solution(new LinkedList<Integer>() {{
             add(6); add(4); add(2); add(0); add(5); add(7); add(1); add(3);

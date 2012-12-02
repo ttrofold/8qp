@@ -1,5 +1,6 @@
-package domain;
+package domain.manager;
 
+import domain.Solution;
 import domain.exceptions.NoSolutionException;
 import domain.queen.Queen;
 
@@ -25,7 +26,7 @@ public class SolutionManager {
         return new LinkedList<Solution>(filteredSolutions);
     }
 
-    public static List<Solution> distinct(LinkedList<Queen> queens) {
+    public static List<Solution> distinct(List<Queen> queens) {
         List<Solution> all = new LinkedList<Solution>(SolutionManager.all(queens));
 
         for(Solution solution: all) {

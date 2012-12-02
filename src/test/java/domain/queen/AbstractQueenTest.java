@@ -1,6 +1,6 @@
 package domain.queen;
 
-import domain.AbstractMockTest;
+import general.AbstractMockTest;
 
 public abstract class AbstractQueenTest extends AbstractMockTest {
     protected static final int AT_SOME_COLUMN = 3;

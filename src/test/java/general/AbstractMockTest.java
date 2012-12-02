@@ -1,4 +1,4 @@
-package domain;
+package general;
 
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;

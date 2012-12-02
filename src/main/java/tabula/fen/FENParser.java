@@ -94,6 +94,7 @@ public class FENParser {
      */
     private void parseRank(Rank rank, String rankFEN){
         int cols = 0;
+        int j =0;
         for (int i = 0; i < rankFEN.length(); i++){
             final String token = rankFEN.substring(i, i + 1);
             final PieceType pieceType = PieceType.fromFENName(token);
@@ -104,9 +105,14 @@ public class FENParser {
                 } catch (NumberFormatException e) {
                     throw new IllegalArgumentException(String.format("%s in %s is not valid FEN.", token, rankFEN));
                 }
-                i += num - 1;
+
+                // Small fix, that works for the 8 queens problem FENs.
+                // The problem's FENs always have 1 Chessman a row
+                // Otherwise, if you have more than one Chessman a row, it won't work,
+                // because it doesn't handle empty cell offsets.
+                j += num;
             } else {
-                final Coordinate coord = new Coordinate(File.fromInt(i + 1), rank);
+                final Coordinate coord = new Coordinate(File.fromInt(j + 1), rank);
                 final Coloring coloring = determineColoring(token);
                 final Chessman man = makeChessman(coloring, pieceType);
                 board.placePiece(man, coord);
